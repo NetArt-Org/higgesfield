@@ -34,32 +34,44 @@ Premiere ▸ Extensions ▸ Higgesfield  (CEP panel)
 
 ---
 
-## Install (Windows)
+## Install
 
-Requires **Premiere Pro 2024 (24.0)+**.
+Requires **Premiere Pro 2024 (24.0)+**. The installer enables CEP debug mode, copies the panel into the correct per-user extensions folder, and optionally captures your core keys.
 
-### Dev install (unsigned, fastest)
-1. Allow unsigned extensions — set `PlayerDebugMode = 1` for the CEP version Premiere uses (CSXS.11 for 2024, CSXS.12 for 2025):
-   ```powershell
-   New-ItemProperty -Path "HKCU:\Software\Adobe\CSXS.11" -Name PlayerDebugMode -Value 1 -PropertyType String -Force
-   New-ItemProperty -Path "HKCU:\Software\Adobe\CSXS.12" -Name PlayerDebugMode -Value 1 -PropertyType String -Force
-   ```
-2. Copy this repo into the per-user CEP extensions folder:
-   ```powershell
-   $dst = "$env:APPDATA\Adobe\CEP\extensions\com.higgesfield"
-   New-Item -ItemType Directory -Force $dst | Out-Null
-   Copy-Item -Recurse -Force "C:\Users\sanja\higgesfield\*" $dst
-   ```
-3. Restart Premiere → **Window ▸ Extensions ▸ Higgesfield**.
+### Windows
+```powershell
+cd C:\Users\sanja\higgesfield
+powershell -ExecutionPolicy Bypass -File .\install.ps1
+```
+
+### macOS
+```bash
+cd /path/to/higgesfield
+chmod +x install.command      # once
+bash install.command          # or just double-click install.command in Finder
+```
+
+Then restart Premiere → **Window ▸ Extensions ▸ Higgesfield**. On first launch the panel opens a **Setup wizard** to collect any keys you skipped — each with a “Get key ↗” link. Reopen it anytime from **Settings ▸ Run setup wizard**.
+
+<details><summary>Manual install / what the scripts do</summary>
+
+- **Enable unsigned extensions** (`<ver>` = 11 for Premiere 2024, 12 for 2025):
+  - Windows: set `PlayerDebugMode=1` (String) under `HKCU\Software\Adobe\CSXS.<ver>`.
+  - macOS: `defaults write com.adobe.CSXS.<ver> PlayerDebugMode 1` then `killall cfprefsd`.
+- **Copy the panel** into the per-user CEP extensions folder:
+  - Windows: `%APPDATA%\Adobe\CEP\extensions\com.higgesfield`
+  - macOS: `~/Library/Application Support/Adobe/CEP/extensions/com.higgesfield`
+
+</details>
 
 ### Packaged install (.zxp)
-Sign with Adobe's `ZXPSignCmd` into `higgesfield.zxp`, then install with the free **ZXP Installer** (aescripts) — the same flow Higgsfield's own plugin uses.
+Sign with Adobe's `ZXPSignCmd` into `higgesfield.zxp`, then install with the free **ZXP Installer** (aescripts) — the same flow Higgsfield's own plugin uses (Windows + macOS).
 
 ---
 
 ## Configure keys
 
-Open the **Settings** tab and paste each key (saved to `~/.higgesfield/config.json`). Where to get them:
+Use the first-run **Setup wizard** (or the **Settings** tab, or the installer's optional prompts) to paste each key — all saved to `~/.higgesfield/config.json`. Where to get them:
 
 | Provider | Get key at | Auth / format |
 |---|---|---|

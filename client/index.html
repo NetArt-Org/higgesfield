@@ -98,9 +98,14 @@
       <div id="keys"></div>
       <h2>ffmpeg</h2>
       <input id="ffmpeg-path" placeholder="ffmpeg (or full path to ffmpeg.exe)">
-      <button id="settings-save" class="primary">Save settings</button>
+      <div class="row">
+        <button id="run-wizard" class="wz-btn">Run setup wizard</button>
+        <button id="settings-save" class="primary">Save settings</button>
+      </div>
     </section>
   </main>
+
+  <div id="wizard" class="wizard-overlay" hidden></div>
 
   <div id="status" class="status"></div>
 
@@ -121,6 +126,7 @@
   <script src="js/providers/veo.js"></script>
   <script src="js/providers/higgsfield.js"></script>
   <script src="js/providers/index.js"></script>
+  <script src="js/providers/meta.js"></script>
   <!-- orchestration + engines -->
   <script src="js/jobs.js"></script>
   <script src="../engine/autocut/analyze.js"></script>
@@ -130,6 +136,7 @@
   <script src="js/pillars/sfx.js"></script>
   <script src="js/pillars/autocut.js"></script>
   <!-- app -->
+  <script src="js/wizard.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

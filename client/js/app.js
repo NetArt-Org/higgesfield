@@ -89,6 +89,13 @@
       inp.placeholder = a.keyHint || 'API key';
       inp.value = (cfg.keys && cfg.keys[a.id]) || '';
       row.appendChild(lab); row.appendChild(inp);
+      var m = (HG.providerMeta && HG.providerMeta[a.id]) || {};
+      if (m.getUrl) {
+        var gl = document.createElement('a'); gl.href = '#'; gl.textContent = 'get'; gl.className = 'getkey';
+        gl.title = m.about || 'Where to get this key';
+        gl.onclick = function (e) { e.preventDefault(); HG.cep.openUrl(m.getUrl); };
+        row.appendChild(gl);
+      }
       if (a.verified === false) { var u = document.createElement('span'); u.className = 'unverified'; u.textContent = 'verify'; u.title = 'Endpoints best-effort — confirm against current provider docs'; row.appendChild(u); }
       box.appendChild(row);
     });
@@ -207,6 +214,7 @@
     };
 
     $('#settings-save').onclick = function () { action(this, 'Save settings', function () { saveSettings(); renderKeys(); return 'Settings saved'; }); };
+    $('#run-wizard').onclick = function () { HG.wizard.open(function () { renderKeys(); refreshLibraries(); }); };
   }
 
   function init() {
@@ -220,6 +228,12 @@
     bind();
     refreshSeqInfo();
     log('Higgesfield ready. ' + (HG.cep.available ? 'Host connected.' : 'No CEP host (open in Premiere).'), HG.cep.available ? 'ok' : 'err');
+
+    // First run (no keys yet) → open the guided setup wizard.
+    var cfg = HG.store.getConfig();
+    if (HG.wizard && (!cfg.keys || Object.keys(cfg.keys).length === 0)) {
+      HG.wizard.open(function () { renderKeys(); refreshLibraries(); log('Setup saved.', 'ok'); });
+    }
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

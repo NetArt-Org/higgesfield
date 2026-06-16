@@ -34,5 +34,23 @@ window.HG = window.HG || {};
     catch (e) { return null; }
   }
 
-  HG.cep = { evalScript: evalScript, host: host, systemPath: systemPath, available: !!cep };
+  /* Open a URL in the user's default browser (cross-platform). */
+  function openUrl(url) {
+    try {
+      if (window.cep && window.cep.util && window.cep.util.openURLInDefaultBrowser) {
+        window.cep.util.openURLInDefaultBrowser(url); return true;
+      }
+    } catch (e) {}
+    try {
+      var cp = require('child_process'), p = process.platform;
+      if (p === 'darwin') cp.exec('open "' + url + '"');
+      else if (p === 'win32') cp.exec('start "" "' + url + '"');
+      else cp.exec('xdg-open "' + url + '"');
+      return true;
+    } catch (e) {}
+    try { window.open(url, '_blank'); } catch (e) {}
+    return false;
+  }
+
+  HG.cep = { evalScript: evalScript, host: host, systemPath: systemPath, openUrl: openUrl, available: !!cep };
 })(window.HG);
