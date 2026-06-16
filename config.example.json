@@ -1,0 +1,18 @@
+{
+  "_comment": "Template only. Real keys are saved (per-machine) to ~/.higgesfield/config.json via the Settings tab and are gitignored. You can also copy this file there and fill it in by hand.",
+  "keys": {
+    "seedance": "BYTEPLUS_MODELARK_API_KEY",
+    "kling": "ACCESS_KEY:SECRET_KEY",
+    "flux": "BFL_API_KEY",
+    "elevenlabs": "ELEVENLABS_API_KEY",
+    "veo": "GOOGLE_GEMINI_API_KEY",
+    "runway": "RUNWAY_API_KEY",
+    "luma": "LUMA_API_KEY",
+    "minimax": "MINIMAX_API_KEY",
+    "higgsfield": "HIGGSFIELD_PRO_API_KEY"
+  },
+  "defaults": {
+    "ffmpegPath": "ffmpeg",
+    "project": "default"
+  }
+}

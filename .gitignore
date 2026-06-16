@@ -1,0 +1,15 @@
+# Secrets & per-machine runtime data
+config.json
+.higgesfield/
+store/
+*.key
+
+# Build artifacts
+node_modules/
+*.zxp
+dist/
+
+# Logs / OS cruft
+*.log
+.DS_Store
+Thumbs.db

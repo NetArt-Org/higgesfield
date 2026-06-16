@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Higgesfield</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="hdr">
+    <div class="brand">Higgesfield <span class="ver">0.1</span></div>
+    <label class="proj">Project
+      <input id="project" type="text" value="default" spellcheck="false">
+    </label>
+    <div id="seqinfo" class="seqinfo">—</div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab active" data-tab="character">Character</button>
+    <button class="tab" data-tab="background">Background</button>
+    <button class="tab" data-tab="sfx">SFX</button>
+    <button class="tab" data-tab="autocut">Auto-Cut</button>
+    <button class="tab" data-tab="settings">Settings</button>
+  </nav>
+
+  <main>
+    <!-- CHARACTER -->
+    <section class="panel active" data-panel="character">
+      <h2>Create character</h2>
+      <input id="ch-name" placeholder="Name (optional)">
+      <textarea id="ch-prompt" rows="3" placeholder="Describe the character…"></textarea>
+      <div class="row">
+        <select id="ch-create-provider"></select>
+        <button id="ch-create" class="primary">Create</button>
+      </div>
+
+      <h2>Animate shot <span class="hint">consistent character</span></h2>
+      <select id="ch-pick"></select>
+      <textarea id="ch-anim-prompt" rows="2" placeholder="What happens in this shot…"></textarea>
+      <div class="row">
+        <select id="ch-anim-provider"></select>
+        <select id="ch-anim-model"></select>
+      </div>
+      <div class="row">
+        <label class="chk"><input type="checkbox" id="ch-useframe"> Use current frame</label>
+        <input id="ch-duration" type="number" min="2" max="10" value="5" title="seconds">
+        <button id="ch-animate" class="primary">Generate → timeline</button>
+      </div>
+      <div id="ch-library" class="library"></div>
+    </section>
+
+    <!-- BACKGROUND -->
+    <section class="panel" data-panel="background">
+      <h2>Environment / background plate</h2>
+      <input id="bg-name" placeholder="Name (optional)">
+      <textarea id="bg-prompt" rows="3" placeholder="Describe the environment…"></textarea>
+      <div class="row">
+        <select id="bg-provider"></select>
+        <button id="bg-create" class="primary">Generate</button>
+      </div>
+      <p class="note">Background replacement on existing footage (matte + composite) is planned — see README.</p>
+      <div id="bg-library" class="library"></div>
+    </section>
+
+    <!-- SFX -->
+    <section class="panel" data-panel="sfx">
+      <h2>Sound effect</h2>
+      <input id="sfx-name" placeholder="Name (optional)">
+      <textarea id="sfx-prompt" rows="3" placeholder="Describe the sound… e.g. 'heavy wooden door slam, reverb'"></textarea>
+      <div class="row">
+        <input id="sfx-duration" type="number" min="1" max="22" step="0.5" placeholder="sec (auto)" title="duration seconds">
+        <label class="chk"><input type="checkbox" id="sfx-save"> Save to profile</label>
+        <button id="sfx-generate" class="primary">Generate → audio track</button>
+      </div>
+      <div id="sfx-library" class="library"></div>
+    </section>
+
+    <!-- AUTO-CUT -->
+    <section class="panel" data-panel="autocut">
+      <h2>Auto-cut</h2>
+      <input id="ac-clip" placeholder="Media file path to analyze (full path)">
+      <div class="row">
+        <select id="ac-mode">
+          <option value="scene">Scene detection</option>
+          <option value="silence">Silence removal</option>
+        </select>
+        <input id="ac-threshold" type="number" step="0.05" placeholder="threshold" title="scene: 0–1 · silence: dB">
+        <label class="chk"><input type="checkbox" id="ac-apply" checked> Apply to timeline</label>
+      </div>
+      <button id="ac-run" class="primary">Analyze &amp; cut</button>
+      <p class="note">Local ffmpeg — no key. Needs ffmpeg on PATH (or set its path in Settings).</p>
+      <div id="ac-result" class="result"></div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section class="panel" data-panel="settings">
+      <h2>API keys <span class="hint">stored locally, never committed</span></h2>
+      <div id="keys"></div>
+      <h2>ffmpeg</h2>
+      <input id="ffmpeg-path" placeholder="ffmpeg (or full path to ffmpeg.exe)">
+      <button id="settings-save" class="primary">Save settings</button>
+    </section>
+  </main>
+
+  <div id="status" class="status"></div>
+
+  <!-- lib -->
+  <script src="js/lib/cep.js"></script>
+  <script src="js/lib/http.js"></script>
+  <script src="js/lib/media.js"></script>
+  <script src="js/lib/store.js"></script>
+  <!-- providers -->
+  <script src="js/providers/_interface.js"></script>
+  <script src="js/providers/seedance.js"></script>
+  <script src="js/providers/kling.js"></script>
+  <script src="js/providers/flux.js"></script>
+  <script src="js/providers/elevenlabs.js"></script>
+  <script src="js/providers/runway.js"></script>
+  <script src="js/providers/luma.js"></script>
+  <script src="js/providers/minimax.js"></script>
+  <script src="js/providers/veo.js"></script>
+  <script src="js/providers/higgsfield.js"></script>
+  <script src="js/providers/index.js"></script>
+  <!-- orchestration + engines -->
+  <script src="js/jobs.js"></script>
+  <script src="../engine/autocut/analyze.js"></script>
+  <!-- pillars -->
+  <script src="js/pillars/character.js"></script>
+  <script src="js/pillars/background.js"></script>
+  <script src="js/pillars/sfx.js"></script>
+  <script src="js/pillars/autocut.js"></script>
+  <!-- app -->
+  <script src="js/app.js"></script>
+</body>
+</html>

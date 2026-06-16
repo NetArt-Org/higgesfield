@@ -1,0 +1,72 @@
+/* Premiere-dark panel theme */
+:root {
+  --bg: #1e1e1e; --bg2: #2a2a2a; --bg3: #333; --line: #3c3c3c;
+  --fg: #e6e6e6; --mut: #9a9a9a; --accent: #4a7cff; --accent2: #3a63cc;
+  --ok: #4caf50; --warn: #e0a030; --err: #e25555;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  background: var(--bg); color: var(--fg);
+  font: 12px/1.45 -apple-system, "Segoe UI", Roboto, sans-serif;
+  display: flex; flex-direction: column;
+}
+h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--mut); margin: 16px 0 6px; }
+.hint { text-transform: none; letter-spacing: 0; color: var(--accent); font-weight: 400; }
+
+.hdr { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+.brand { font-weight: 700; font-size: 13px; }
+.ver { color: var(--mut); font-weight: 400; font-size: 10px; }
+.proj { margin-left: auto; color: var(--mut); font-size: 11px; }
+.proj input { width: 90px; margin-left: 4px; }
+.seqinfo { color: var(--mut); font-size: 10px; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.tabs { display: flex; border-bottom: 1px solid var(--line); background: var(--bg2); }
+.tab { flex: 1; padding: 8px 4px; background: none; border: none; color: var(--mut); cursor: pointer; font-size: 11px; border-bottom: 2px solid transparent; }
+.tab:hover { color: var(--fg); }
+.tab.active { color: var(--fg); border-bottom-color: var(--accent); }
+
+main { flex: 1; overflow-y: auto; padding: 4px 12px 12px; }
+.panel { display: none; }
+.panel.active { display: block; }
+
+input, textarea, select {
+  width: 100%; background: var(--bg2); color: var(--fg);
+  border: 1px solid var(--line); border-radius: 4px; padding: 6px 8px; margin: 3px 0; font: inherit;
+}
+input:focus, textarea:focus, select:focus { outline: none; border-color: var(--accent); }
+textarea { resize: vertical; }
+
+.row { display: flex; gap: 6px; align-items: center; margin: 4px 0; }
+.row > * { margin: 0; }
+.row select, .row input[type=number] { flex: 0 1 auto; }
+.row .primary { margin-left: auto; }
+
+.chk { display: flex; align-items: center; gap: 4px; color: var(--mut); white-space: nowrap; font-size: 11px; }
+.chk input { width: auto; }
+
+button.primary { background: var(--accent); color: #fff; border: none; border-radius: 4px; padding: 7px 12px; cursor: pointer; font-weight: 600; white-space: nowrap; }
+button.primary:hover { background: var(--accent2); }
+button.primary:disabled { background: var(--bg3); color: var(--mut); cursor: default; }
+
+.note { color: var(--mut); font-size: 10px; margin: 6px 0; font-style: italic; }
+
+.library { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.asset { background: var(--bg2); border: 1px solid var(--line); border-radius: 4px; padding: 5px 8px; font-size: 11px; max-width: 100%; }
+.asset .x { color: var(--mut); cursor: pointer; margin-left: 6px; }
+.asset .x:hover { color: var(--err); }
+
+.result { margin-top: 10px; font-family: ui-monospace, Consolas, monospace; font-size: 11px; color: var(--mut); white-space: pre-wrap; }
+
+#keys .keyrow { display: flex; align-items: center; gap: 6px; margin: 2px 0; }
+#keys .keyrow label { flex: 0 0 92px; color: var(--mut); font-size: 11px; }
+#keys .keyrow .unverified { color: var(--warn); font-size: 9px; }
+
+.status {
+  border-top: 1px solid var(--line); background: var(--bg2);
+  padding: 6px 10px; font-size: 11px; min-height: 16px; max-height: 90px; overflow-y: auto;
+  font-family: ui-monospace, Consolas, monospace; color: var(--mut);
+}
+.status .err { color: var(--err); }
+.status .ok { color: #66bb6a; }
+.status .run { color: var(--accent); }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Remote-debug the panel: with Premiere open and the panel visible,
+     browse to http://localhost:8088 in Chrome. -->
+<ExtensionList>
+  <Extension Id="com.higgesfield.panel">
+    <HostList>
+      <Host Name="PPRO" Port="8088"/>
+    </HostList>
+  </Extension>
+</ExtensionList>

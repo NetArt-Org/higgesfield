@@ -1,0 +1,12 @@
+{
+  "name": "higgesfield",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Adobe Premiere Pro CEP plugin: consistent character / background / SFX generation + auto-cut, talking directly to model APIs (no broker).",
+  "scripts": {
+    "zxp": "echo Sign with ZXPSignCmd to package a .zxp (see README.md)"
+  },
+  "engines": {
+    "note": "Runs inside Premiere's bundled CEP Node runtime. No npm install required — only Node built-ins (https, fs, crypto, child_process) are used."
+  }
+}
